@@ -1,4 +1,7 @@
-[
+const {Riddles}=require('../models');
+
+
+const riddleData= [
     {
         "riddle": " What has a face and two hands but no arms or legs?",
         "answer": "Clock"
@@ -35,4 +38,8 @@
         "riddle":"What can you catch, but not throw?",
         "answer":"A Cold"
     }
-]
+];
+
+const seedRiddles= () => Riddles.bulkCreate(riddleData);
+
+module.exports=seedRiddles;
