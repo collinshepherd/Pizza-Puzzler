@@ -1,7 +1,7 @@
 const sequelize=require('../config/connection');
 const { User, Riddles }=require('../models');
 const userData=require('./userData.json');
-const riddleData=require('./levelOneRiddles.json');
+const riddleData=require('./riddleData');
 
 const seedDatabase=async () => {
     await sequelize.sync({ force: true});
