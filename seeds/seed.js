@@ -1,5 +1,5 @@
 const sequelize=require('../config/connection');
-const { User, Riddles }=require('../models/User');
+const { User, Riddles }=require('../models');
 const userData=require('./userData.json');
 const riddleData=require('./levelOneRiddles.json');
 
@@ -11,7 +11,7 @@ const seedDatabase=async () => {
         returning: true,
     });
 
-    await Riddles.bulkCreat(riddleData,{
+    await Riddles.bulkCreate(riddleData,{
         individualHooks:true,
         returning:true,
     })

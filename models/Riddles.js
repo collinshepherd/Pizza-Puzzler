@@ -22,3 +22,5 @@ Riddles.init(
         modelName: 'riddles',
     }
 )
+
+module.exports= Riddles;
