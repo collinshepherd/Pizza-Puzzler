@@ -14,7 +14,7 @@ router.get('/', async (req, res) => {
       },
       include: [
         {
-          model: Pokemon,
+          model: User,
         },
       ],
     });
