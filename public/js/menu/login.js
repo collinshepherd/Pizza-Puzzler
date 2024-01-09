@@ -26,11 +26,7 @@ const loginFormHandler = async (event) => {
     const username = document.querySelector('#username-signup').value.trim();
     const password = document.querySelector('#password-signup').value.trim();
     const password2 = document.querySelector('#password-signup2').value.trim();
-    let gender;
-    let avatar;
-    let randomizer = Math.floor(Math.random()*2)
-    if (randomizer === '0') {
-  
+   
     if (password !== password2) {
       alert('Passwords must match');
       return;
@@ -57,4 +53,4 @@ const loginFormHandler = async (event) => {
   
   document
     .querySelector('.signup-form')
-    .addEventListener('submit', signupFormHandler)};
+    .addEventListener('submit', signupFormHandler);
