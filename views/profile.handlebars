@@ -1,12 +1,12 @@
 <div class="row background">
-    <div class="col-9" for="list of pokemon">
+    <div class="col-9" for="list of monsters">
         <div class="row d-flex justify-content-evenly">
         {{!-- {{#if profile}}
         {{#each profile. as ||}} --}}
         {{creature-details}} 
         {{/each}}
         {{else}}
-        <div class="card m-2" style="width: 18rem;" id='profile-no-pokemon'>
+        <div class="card m-2" style="width: 18rem;" id='profile'>
             <div class="card-body">
                 <h3 class="card-title">{{profile.username}}</h3>
             </div>
@@ -17,7 +17,7 @@
     <div class="col-3" style="max-height: 600px;"for="user stats">
         <div class='row'>
             <div class="card m-1" style="width: 18rem; background-color: #201c24;">
-                <img src={{profile.avatar}} {{!-- Change url based avatar of user --}} class="card-img-top" alt="trainer">
+                <img src={{profile.avatar}} {{!-- Change url based avatar of user --}} class="card-img-top" alt="avatar">
                 <div class="card-body" id='profile-card-body'>
                     <h5 class="card-title">{{profile.username}}</h5>
                     <p class="card-text">Avatar</p>
