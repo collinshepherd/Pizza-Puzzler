@@ -43,14 +43,14 @@ const signupFormHandler = async (event) => {
 
     if (username && password && password2 ) {
       console.log('making fetch req')
-      const response = await fetch("/api/users", {
+      const response = await fetch("/api/users/signup", {
         method: "POST",
         body: JSON.stringify({ username, password}),
         headers: { "Content-Type": "application/json" },
       });
       console.log(response)
       if (response.ok) {
-        document.location.replace("/profile");
+        document.location.replace("/");
       } else {
         alert("Problem with making a new account");
       }
