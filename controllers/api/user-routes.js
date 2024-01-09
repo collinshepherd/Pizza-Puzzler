@@ -132,7 +132,26 @@ router.post('/login', async (req, res) => {
     res.status(500).json(err);
   }
 });
+// new user sign up adds user to db
+router.post('/signup', async (req, res) =>{
+  console.log(req.body)
+  User.create(req.body)
+  .then((newUser) =>{
 
+    req.session.save(() => {
+      req.session.loggedIn = true;
+      req.session.username = newUser.username;
+      req.session.user_id = newUser.id;
+      res
+        .status(200)
+        .json({ user: newUser, message: 'You are now logged in!' });
+    });
+
+  })
+  .catch((err) => {
+    res.json(err)
+  })
+});
 // Logout
 router.post('/logout', (req, res) => {
   if (req.session.loggedIn) {
