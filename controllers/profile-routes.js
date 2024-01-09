@@ -34,6 +34,7 @@ router.get('/', async (req, res) => {
 
 // new user sign up adds user to db
 router.post('/', (req, res) =>{
+  console.log(req.body)
   User.create(req.body)
   .then((newUser) =>{
     res.json(newUser);
