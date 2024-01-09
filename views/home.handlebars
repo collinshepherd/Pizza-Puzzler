@@ -1,20 +1,22 @@
 {{! If not logged in, show a splash screen, otherwise, show play a new game }}
-<div class='row background'>
+<div class="row background">
   {{#if loggedIn}}
-    <div class='col d-flex align-items-center flex-column'>
-      <img
-        src='/'
-        id='login-splash'
-      />
-      <button type='button' class='btn btn-success' id='playBtn'>PLAY!</button>
-      <div class='white-text'>Logged in as {{username}}</div>
+    <div class="col d-flex align-items-center flex-column">
+      <img src="/" id="login-splash" />
+      <button type="button" class="btn btn-success" id="playBtn">PLAY!</button>
+      <div class="white-text">Logged in as {{username}}</div>
     </div>
   {{else}}
-    <div class='col d-flex justify-content-center flex-row'>
-      <img
-        src='/images/logo.png'
-      />
+    <div class="col d-flex justify-content-center flex-row">
+      <img src="/images/logo.png" />
     </div>
   {{/if}}
 </div>
+<<<<<<< Updated upstream
 {{!-- <script src='/js/menu/home.js'></script> --}}
+=======
+
+<div class="game-container">
+  <canvas class="game-canvas" width="352" height="198"></canvas>
+</div>
+>>>>>>> Stashed changes
