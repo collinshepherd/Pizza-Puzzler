@@ -1,8 +1,8 @@
 <div class="row background">
     <div class="col-9" for="list of monsters">
         <div class="row d-flex justify-content-evenly">
-        {{!-- {{#if profile}}
-        {{#each profile. as ||}} --}}
+        {{#if profile}}
+        {{#each profile.user as |User|}}
         {{creature-details}} 
         {{/each}}
         {{else}}
