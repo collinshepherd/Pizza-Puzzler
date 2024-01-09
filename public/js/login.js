@@ -10,7 +10,7 @@ const loginFormHandler = async (event) => {
       body: JSON.stringify({ username, password }),
       headers: { "Content-Type": "application/json" },
     });
-
+    console.log(response)
     if (response.ok) {
       document.location.replace("/profile");
       return;
@@ -25,34 +25,37 @@ const loginFormHandler = async (event) => {
 console.log("login form handler");
 // }
 const signupFormHandler = async (event) => {
+  console.log('signup button clicked')
   event.preventDefault();
 
   const username = document.querySelector("#username-signup").value.trim();
   const password = document.querySelector("#password-signup").value.trim();
   const password2 = document.querySelector("#password-signup2").value.trim();
+  console.log(username,password,password2)
   let gender;
   let avatar;
   let randomizer = Math.floor(Math.random() * 2);
-  if (randomizer === "0") {
+  // if (randomizer === "0") { 
     if (password !== password2) {
       alert("Passwords must match");
       return;
     }
 
-    if (username && password && password2 && avatar) {
+    if (username && password && password2 ) {
+      console.log('making fetch req')
       const response = await fetch("/api/users", {
         method: "POST",
-        body: JSON.stringify({ username, password, avatar }),
+        body: JSON.stringify({ username, password}),
         headers: { "Content-Type": "application/json" },
       });
-
+      console.log(response)
       if (response.ok) {
-        document.location.replace("/users");
+        document.location.replace("/profile");
       } else {
         alert("Problem with making a new account");
       }
     }
-  }
+  // }
 };
 
 console.log("over here");

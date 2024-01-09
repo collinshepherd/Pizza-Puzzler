@@ -32,4 +32,16 @@ router.get('/', async (req, res) => {
   }
 });
 
+// new user sign up adds user to db
+router.post('/', (req, res) =>{
+  console.log(req.body)
+  User.create(req.body)
+  .then((newUser) =>{
+    res.json(newUser);
+  })
+  .catch((err) => {
+    res.json(err)
+  })
+});
+
 module.exports = router;
