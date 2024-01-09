@@ -38,6 +38,7 @@ router.post('/', (req, res) =>{
   User.create(req.body)
   .then((newUser) =>{
     res.json(newUser);
+    
   })
   .catch((err) => {
     res.json(err)
