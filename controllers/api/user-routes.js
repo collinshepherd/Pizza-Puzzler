@@ -43,6 +43,10 @@ router.post('/', async (req, res) => {
     const dbUserData = await User.create({
       username: req.body.username,
       password: req.body.password,
+
+      // gender: req.body.gender,
+      // avatar: req.body.avatar,
+
     });
 
     // For testing
@@ -80,9 +84,9 @@ router.post('/login', async (req, res) => {
       where: {
         username: req.body.username,
       },
-    });
+    })
 
-    const user = dbUserData.get({ plain: true });
+    const user = await dbUserData.get({ plain: true });
 
     console.log('user', user);
 
