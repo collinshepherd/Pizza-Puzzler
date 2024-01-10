@@ -1,4 +1,14 @@
-const Riddles=require('./riddles')
+const Riddles = require("./riddles");
 const User = require("./User");
+const Pizza = require("./Pizza");
 
-module.exports = { User, Riddles };
+User.hasMany(Pizza, {
+  foreignKey: "userId",
+  onDelete: "CASCADE",
+});
+
+Pizza.belongsTo(User, {
+  foreignKey: "userId",
+});
+
+module.exports = { User, Riddles, Pizza };

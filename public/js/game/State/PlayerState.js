@@ -36,9 +36,9 @@ class PlayerState {
       { actionId: "item_recoverHp", instanceId: "item3" },
     ];
     this.storyFlags = {
-      "DID_SOMETHING": true,
-      "DEFEATED_FIRST_BOSS": true,
-    }
+      DID_SOMETHING: true,
+      DEFEATED_FIRST_BOSS: true,
+    };
   }
 
   swapLineup(oldId, incomingId) {

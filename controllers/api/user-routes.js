@@ -1,8 +1,9 @@
-const router = require('express').Router();
-const { User } = require('../../models');
+const router = require("express").Router();
+const { User, Pizza } = require("../../models");
+const pizzaData = require("./pizzaData.json");
 
 // GET all users
-router.get('/', async (req, res) => {
+router.get("/", async (req, res) => {
   try {
     const userData = await User.findAll();
 
@@ -21,7 +22,7 @@ router.get('/', async (req, res) => {
 });
 
 // GET one user
-router.get('/:id', async (req, res) => {
+router.get("/:id", async (req, res) => {
   try {
     const userData = await User.findByPk(req.params.id);
 
@@ -38,7 +39,7 @@ router.get('/:id', async (req, res) => {
 
 // CREATE new user
 // Signup
-router.post('/', async (req, res) => {
+router.post("/", async (req, res) => {
   try {
     const dbUserData = await User.create({
       username: req.body.username,
@@ -46,7 +47,6 @@ router.post('/', async (req, res) => {
 
       // gender: req.body.gender,
       // avatar: req.body.avatar,
-
     });
 
     // For testing
@@ -78,22 +78,22 @@ router.post('/', async (req, res) => {
 
 // Login
 // Would need to add code in server.js to use cookies
-router.post('/login', async (req, res) => {
+router.post("/login", async (req, res) => {
   try {
     const dbUserData = await User.findOne({
       where: {
         username: req.body.username,
       },
-    })
+    });
 
     const user = await dbUserData.get({ plain: true });
 
-    console.log('user', user);
+    console.log("user", user);
 
     if (!user) {
       res
         .status(400)
-        .json({ message: 'Incorrect email or password. Please try again!' });
+        .json({ message: "Incorrect email or password. Please try again!" });
       return;
     }
 
@@ -102,7 +102,7 @@ router.post('/login', async (req, res) => {
     if (!validPassword) {
       res
         .status(400)
-        .json({ message: 'Incorrect email or password. Please try again!' });
+        .json({ message: "Incorrect email or password. Please try again!" });
       return;
     }
 
@@ -125,7 +125,7 @@ router.post('/login', async (req, res) => {
 
       res
         .status(200)
-        .json({ user: dbUserData, message: 'You are now logged in!' });
+        .json({ user: dbUserData, message: "You are now logged in!" });
     });
   } catch (err) {
     console.log(err);
@@ -133,27 +133,39 @@ router.post('/login', async (req, res) => {
   }
 });
 // new user sign up adds user to db
-router.post('/signup', async (req, res) =>{
-  console.log(req.body)
-  User.create(req.body)
-  .then((newUser) =>{
+router.post("/signup", async (req, res) => {
+  try {
+    // Create a new user
+    const newUser = await User.create(req.body);
 
+    // Associate pizzas with the new user
+    const pizzasPromises = pizzaData.map(async (pizza) => {
+      pizza.userId = newUser.id;
+      const createdPizza = await Pizza.create(pizza);
+      return createdPizza;
+    });
+
+    // Wait for all pizza creations to finish
+    const pizzas = await Promise.all(pizzasPromises);
+
+    // Save session and respond
     req.session.save(() => {
       req.session.loggedIn = true;
       req.session.username = newUser.username;
       req.session.user_id = newUser.id;
       res
         .status(200)
-        .json({ user: newUser, message: 'You are now logged in!' });
+        .json({ user: newUser, pizzas, message: "You are now logged in!" });
     });
-
-  })
-  .catch((err) => {
-    res.json(err)
-  })
+  } catch (err) {
+    // Handle errors
+    console.error("Error creating user and pizzas:", err);
+    res.status(500).json({ message: "Internal Server Error" });
+  }
 });
+
 // Logout
-router.post('/logout', (req, res) => {
+router.post("/logout", (req, res) => {
   if (req.session.loggedIn) {
     req.session.destroy(() => {
       res.status(204).end();
@@ -163,7 +175,7 @@ router.post('/logout', (req, res) => {
   }
 });
 
-router.delete('/:id', async (req, res) => {
+router.delete("/:id", async (req, res) => {
   try {
     const userData = await User.destroy({
       where: {

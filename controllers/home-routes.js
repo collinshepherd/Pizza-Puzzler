@@ -1,8 +1,11 @@
 const router = require("express").Router();
+const fetchData = require("../public/js/game/FetchData");
+const updateData = require("../UpdateData");
 
 router.get("/", async (req, res) => {
-  console.log("arrived at home route");
-  console.log(req.session.loggedIn);
+  console.log(req.session);
+  // await fetchData(req);
+  // await updateData();
   res.render("home", {
     loggedIn: req.session.loggedIn,
     username: req.session.username,

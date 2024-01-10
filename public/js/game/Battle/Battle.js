@@ -64,12 +64,12 @@ class Battle {
     };
 
     // Dynamically add the Player Team
-    window.playerState.lineup.forEach((id) => {
-      this.addCombatant(id, "player", window.playerState.pizzas[id]);
-    });
 
-    Object.keys(this.enemy.pizzas).forEach((key) => {
-      this.addCombatant("e_" + key, "enemy", this.enemy.pizzas[key]);
+    window.playerState.lineup.forEach(async (id) => {
+      await this.addCombatant(id, "player", window.playerState.pizzas[id]);
+    });
+    Object.keys(this.enemy.pizzas).forEach(async (key) => {
+      await this.addCombatant("e_" + key, "enemy", this.enemy.pizzas[key]);
     });
 
     this.items = [];
@@ -84,7 +84,10 @@ class Battle {
     this.usedInstanceIds = {};
   }
 
-  addCombatant(id, team, config) {
+  async addCombatant(id, team, config) {
+    console.log("id", id, "\nteam", team, "\nconfig", config);
+    const pizzas = await this.fetchData();
+    console.log(pizzas);
     this.combatants[id] = new Combatant(
       {
         ...Pizzas[config.pizzaId],
@@ -97,6 +100,24 @@ class Battle {
 
     // Populate first active pizza
     this.activeCombatants[team] = this.activeCombatants[team] || id;
+  }
+
+  async fetchData() {
+    try {
+      const apiUrl = `http://localhost:3001/api/pizza/getUserPizzas`; // For website
+      // const apiUrl = `http://localhost:3001/api/pizza/1`; // For insomnia testing
+      console.log("Fetching URL:", apiUrl);
+      const pizzaData = await fetch(apiUrl, {
+        method: "GET",
+        headers: { "Content-Type": "application/json" },
+      });
+      // pizzaData.shift();
+      const jsonData = await pizzaData.json();
+      console.log(jsonData);
+      return jsonData;
+    } catch (error) {
+      console.error(error);
+    }
   }
 
   createElement() {

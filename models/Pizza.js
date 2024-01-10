@@ -1,60 +1,60 @@
-const {Model, DataTypes} =require('sequelize');
-const sequelize=require('../config/connection');
-const bcrypt=require('bcrypt')
+const { Model, DataTypes, INTEGER } = require("sequelize");
+const sequelize = require("../config/connection");
+const bcrypt = require("bcrypt");
 
-class Pizza extends Model{
-    checkPassword(loginPw){
-        return bcrypt.compareSync(loginPw, this.password);
-    }
-    // makes password cryptic for security
-}
+class Pizza extends Model {}
 
 Pizza.init(
-    {
-    id:{
-        type: DataTypes.INTEGER,
-        allowNull:false,
-        primaryKey: true,
-        autoIncrement: true,
+  {
+    id: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+      primaryKey: true,
+      autoIncrement: true,
     },
-    pizzaID:{
-        type:DataTypes.STRING,
-        allowNull:false,
+    pizzaName: {
+      type: DataTypes.STRING,
+      allowNull: false,
     },
-    hp:{
-        type:DataTypes.INTEGER,
-        allowNull:false,
-        
+    hp: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
     },
-    maxHp:{
-        type: DataTypes.INTEGER,
-        allowNull:false
+    maxHp: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
     },
-    xp:{
-        type:DataTypes.INTEGER,
-        allowNull:false
+    xp: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
     },
-    maxXp:{
-        type:DataTypes.INTEGER,
-        allowNull:false
+    maxXp: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
     },
-    level:{
-        type:DataTypes.INTEGER,
-        allowNull:false
+    level: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
     },
-    status:{
-        type:DataTypes.INTEGER,
-        allowNull:true
+    status: {
+      type: DataTypes.INTEGER,
+      allowNull: true,
     },
-},
-{
-   
+    userId: {
+      type: DataTypes.INTEGER,
+      references: {
+        model: "User",
+        key: "id",
+      },
+    },
+  },
+  {
     sequelize,
     timestamps: false,
     freezeTableName: true,
-    underscored:true,
-    modelName:'Pizza',
-}
+    underscored: true,
+    modelName: "Pizza",
+  }
 );
 
-module.exports= Pizza;
+module.exports = Pizza;
