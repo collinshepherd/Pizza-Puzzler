@@ -1,16 +1,16 @@
-const router = require('express').Router();
-const { User } = require('../models');
+const router = require("express").Router();
+const { User } = require("../models");
 
-router.get('/', async (req, res) => {
+router.get("/", async (req, res) => {
   try {
-    console.log(req.session.user_id);
+    // console.log(req.session.user_id);
     if (!req.session.user_id) {
-      res.render('home');
+      res.render("home");
       return;
     }
     const profileData = await User.findOne({
       where: {
-        id: req.session.user_id
+        id: req.session.user_id,
       },
       include: [
         {
@@ -21,9 +21,10 @@ router.get('/', async (req, res) => {
 
     const profile = profileData.get({ plain: true });
 
-    console.log(profile);
-    res.render('profile', {
-      profile: profile, loggedIn: req.session.loggedIn
+    // console.log(profile);
+    res.render("profile", {
+      profile: profile,
+      loggedIn: req.session.loggedIn,
     });
     // res.json(profileData);
   } catch (err) {
@@ -38,7 +39,7 @@ router.get('/', async (req, res) => {
 //   User.create(req.body)
 //   .then((newUser) =>{
 //     res.json(newUser);
-    
+
 //   })
 //   .catch((err) => {
 //     res.json(err)

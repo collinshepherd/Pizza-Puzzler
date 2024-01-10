@@ -1,4 +1,9 @@
-const Riddles=require('./riddles')
+const Riddles = require("./riddles");
 const User = require("./User");
+const PlayerProgress = require("./PlayerProgress");
 
-module.exports = { User, Riddles };
+PlayerProgress.belongsTo(User, {
+  foreignKey: "user_id",
+});
+
+module.exports = { User, Riddles, PlayerProgress };

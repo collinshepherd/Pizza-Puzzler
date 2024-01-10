@@ -1,26 +1,11 @@
-{{! If not logged in, show a splash screen, otherwise, show play a new game }}
-<div class="row background">
-  {{#if loggedIn}}
-    <div class="col d-flex align-items-center flex-column">
-      <button type="button" class="btn btn-success" id="playBtn">PLAY!</button>
-      <div class="white-text">Logged in as {{username}}</div>
-    </div>
-  {{else}}
-    <div class="col d-flex justify-content-center flex-row">
+<div class="col d-flex justify-content-center flex-row">
       <img class="home-img" src="/images/pizza-goblin.gif">
       <p class="instruction">
         In the lively town of Pizzaville, pizza maestro Luigi Linguini sets out on a daring quest to win the prestigious Pizza Puzzler competition. Faced with a series of cryptic riddles scattered across themed pizzerias, Luigi uses his culinary genius to solve each puzzle. Along the way, he encounters eccentric characters and rival chefs, all vying for the coveted title of "Master Pizza Artisan."<br><br>
         As Luigi collects ingredients and overcomes challenges, the climax unfolds at the mysterious Pizza Paradox atop Mount Margherita. In a thrilling showdown, Luigi tackles the ultimate riddle, unveiling a pizza masterpiece that incorporates the unique elements he gathered during his journey. The town watches in awe as Luigi Linguini cements his status not only as a pizza virtuoso but also as the triumphant Pizza Puzzler Champion.<br><br>
         Will he become the champion Pizza Puzzler? Find out by clicking on "Login" to Sign Up or Login to start the game!
       </p>
-    </div>
   {{/if}}
 </div>
-<<<<<<< Updated upstream
-{{!-- <script src='/js/menu/home.js'></script> --}}
-=======
 
-<div class="game-container">
-  <canvas class="game-canvas" width="352" height="198"></canvas>
-</div>
->>>>>>> Stashed changes
+{{! <script src='/js/menu/home.js'></script> }}

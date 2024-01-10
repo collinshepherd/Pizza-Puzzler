@@ -57,7 +57,7 @@ class BattleEvent {
     //Wait a little bit
     await utils.wait(600);
 
-    // Update Team Components
+    //Update Team components
     this.battle.playerTeam.update();
     this.battle.enemyTeam.update();
 
@@ -110,7 +110,7 @@ class BattleEvent {
     replacement.update();
     await utils.wait(400);
 
-    // Update Team Components
+    //Update Team components
     this.battle.playerTeam.update();
     this.battle.enemyTeam.update();
 
@@ -125,9 +125,10 @@ class BattleEvent {
         amount -= 1;
         combatant.xp += 1;
 
+        //Check if we've hit level up point
         if (combatant.xp === combatant.maxXp) {
           combatant.xp = 0;
-          combatant.mapXp = 100;
+          combatant.maxXp = 100;
           combatant.level += 1;
         }
 
