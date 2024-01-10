@@ -1,3 +1,4 @@
+
 .body {
     background-color: #201c24;
 }
@@ -40,9 +41,25 @@
     color:white
 }
 
+.home-img {
+    padding: 1rem;
+    margin: 1rem;
+    width: 700px;
+    height: 500px;
+}
+
+.instruction {
+    color: white;
+    font-family: 'Pixelify Sans', sans-serif;
+    font-size: 1.5rem;
+    padding: 2rem;
+    margin: 2rem;
+    flex: auto;
+}
+
 .login-card {
     max-width: 400px;
-    margin: 70px;
+    margin: 100px;
     color: white;
 }
 
@@ -55,13 +72,10 @@
     margin-bottom: -0.25rem;
 }
 
-#post-background {
-    padding: 50px;
-}
 
-@media screen and (max-width: 768px) {
+@media screen and (max-width: 800px) {
     main,
-    nav {
+    .nav {
       flex-direction: column;
     }
   }
