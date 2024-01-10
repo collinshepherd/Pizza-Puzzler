@@ -87,6 +87,7 @@ class OverworldEvent {
 
   battle(resolve) {
     const battle = new Battle({
+      progress: this.map.overworld.progress,
       enemy: Enemies[this.event.enemyId],
       arena: this.event.arena || null,
       onComplete: (didWin) => {

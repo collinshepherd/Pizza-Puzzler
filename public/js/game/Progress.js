@@ -45,8 +45,8 @@ class Progress {
         method: "GET",
         headers: { "Content-Type": "application/json" },
       });
+
       const progress = await response.json();
-      // console.log(progress);
       return progress.stateObject;
     } catch (error) {
       console.error(error);

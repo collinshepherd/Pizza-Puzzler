@@ -34,6 +34,7 @@ class OverworldMap {
 
   isSpaceTaken(currentX, currentY, direction) {
     const { x, y } = utils.nextPosition(currentX, currentY, direction);
+    console.log(utils.nextPosition(currentX, currentY, direction));
     if (this.walls[`${x},${y}`]) {
       return true;
     }
@@ -363,7 +364,7 @@ window.OverworldMaps = {
               type: "changeMap",
               map: "Street",
               x: utils.withGrid(5),
-              y: utils.withGrid(10),
+              y: utils.withGrid(9),
               direction: "down",
             },
           ],
@@ -596,6 +597,50 @@ window.OverworldMaps = {
       return walls;
     })(),
     cutsceneSpaces: {
+      [utils.asGridCoord(5, 10)]: [
+        {
+          disqualify: ["INSTRUCTIONS"],
+          events: [
+            { type: "addStoryFlag", flag: "INSTRUCTIONS" },
+            { type: "walk", who: "streetNpcA", direction: "left" },
+            { type: "walk", who: "streetNpcA", direction: "left" },
+            { type: "walk", who: "streetNpcA", direction: "left" },
+            { type: "walk", who: "streetNpcA", direction: "left" },
+            {
+              type: "stand",
+              who: "streetNpcA",
+              direction: "up",
+              time: 400,
+            },
+            { type: "stand", who: "hero", direction: "down", time: 200 },
+            { type: "textMessage", text: "First day?" },
+            {
+              type: "textMessage",
+              text: "She is very grumpy all the time.",
+            },
+            {
+              type: "textMessage",
+              text: "To get started you can move around with wasd or the arrow keys.",
+            },
+            {
+              type: "textMessage",
+              text: "Be careful talking to people, sometimes they think you want to fight.",
+            },
+            {
+              type: "textMessage",
+              text: "I would go look for the legendary pizza stone, it will allow you to make more pizzas.",
+            },
+            {
+              type: "textMessage",
+              text: "Good luck hero!",
+            },
+            { type: "walk", who: "streetNpcA", direction: "right" },
+            { type: "walk", who: "streetNpcA", direction: "right" },
+            { type: "walk", who: "streetNpcA", direction: "right" },
+            { type: "walk", who: "streetNpcA", direction: "right" },
+          ],
+        },
+      ],
       [utils.asGridCoord(5, 9)]: [
         {
           events: [

@@ -1,26 +1,26 @@
-const {Model, DataTypes} =require('sequelize');
-const sequelize=require('../config/connection');
+const { Model, DataTypes } = require("sequelize");
+const sequelize = require("../config/connection");
 
 class Riddles extends Model {}
 
 Riddles.init(
-    {
-        riddle:{
-            type: DataTypes.TEXT,
-            allowNull:false
-        },
-        answer:{
-            type:DataTypes.TEXT,
-            allowNull:false
-        },
+  {
+    riddle: {
+      type: DataTypes.TEXT,
+      allowNull: false,
     },
-    {
-        sequelize,
-        timestamps: false,
-        freezeTableName: true,
-        underscored: true,
-        modelName: 'riddles',
-    }
-)
+    answer: {
+      type: DataTypes.TEXT,
+      allowNull: false,
+    },
+  },
+  {
+    sequelize,
+    timestamps: false,
+    freezeTableName: true,
+    underscored: true,
+    modelName: "riddles",
+  }
+);
 
-module.exports= Riddles;
+module.exports = Riddles;

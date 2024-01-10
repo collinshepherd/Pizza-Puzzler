@@ -8,12 +8,6 @@ router.get("/", async (req, res) => {
 
     // testing the route
     res.json(userData);
-
-    // For sending userData to login.handlebars
-    // res.render('login', {
-    //   userData,
-    //   loggedIn: req.session.loggedIn,
-    // });
   } catch (err) {
     console.log(err);
     res.status(500).json(err);
@@ -27,56 +21,13 @@ router.get("/:id", async (req, res) => {
 
     // testing the route
     res.json(userData);
-
-    // For sending userData to login.handlebars
-    // res.render('login', { userData, loggedIn: req.session.loggedIn });
   } catch (err) {
     console.log(err);
     res.status(500).json(err);
   }
 });
 
-// CREATE new user
-// Signup
-router.post("/", async (req, res) => {
-  try {
-    const dbUserData = await User.create({
-      username: req.body.username,
-      password: req.body.password,
-
-      // gender: req.body.gender,
-      // avatar: req.body.avatar,
-    });
-
-    // For testing
-    // res.json(dbUserData);
-
-    const userData = await User.findOne({
-      where: {
-        username: req.body.username,
-      },
-    });
-
-    const user = userData.get({ plain: true });
-
-    req.session.save(() => {
-      req.session.loggedIn = true;
-      req.session.username = user.username;
-      req.session.user_id = user.id;
-
-      // console.log('req.session.username', req.session.username);
-      // console.log('req.session.user_id', req.session.user_id);
-
-      res.status(200).json(dbUserData);
-    });
-  } catch (err) {
-    console.log(err);
-    res.status(500).json(err);
-  }
-});
-
-// Login
-// Would need to add code in server.js to use cookies
+// Login route to handle login requests
 router.post("/login", async (req, res) => {
   try {
     const dbUserData = await User.findOne({
@@ -103,23 +54,11 @@ router.post("/login", async (req, res) => {
       return;
     }
 
-    // const userData = await User.findOne({
-    //   where: {
-    //     username: req.body.username,
-    //   },
-    // });
-
-    // const user = userData.get({ plain: true });
-
-    // For when working with cookies
+    // Adding cookies to the user after they login
     req.session.save(() => {
       req.session.loggedIn = true;
       req.session.username = user.username;
       req.session.user_id = user.id;
-
-      // console.log('req.session.username', req.session.username);
-      // console.log('req.session.user_id', req.session.user_id);
-
       res
         .status(200)
         .json({ user: dbUserData, message: "You are now logged in!" });
@@ -129,7 +68,7 @@ router.post("/login", async (req, res) => {
     res.status(500).json(err);
   }
 });
-// new user sign up adds user to db
+// Signup route for new users
 router.post("/signup", async (req, res) => {
   try {
     // Create a new user
@@ -156,7 +95,7 @@ router.post("/signup", async (req, res) => {
   }
 });
 
-// Logout
+// Logout the current user and destroy their session cookie
 router.post("/logout", (req, res) => {
   if (req.session.loggedIn) {
     req.session.destroy(() => {
@@ -167,6 +106,7 @@ router.post("/logout", (req, res) => {
   }
 });
 
+// Delete the user with this id
 router.delete("/:id", async (req, res) => {
   try {
     const userData = await User.destroy({
@@ -178,12 +118,11 @@ router.delete("/:id", async (req, res) => {
     // For testing
     res.json(userData);
 
-    // For when working with cookies
-    // if (req.session.loggedIn) {
-    //   req.session.destroy(() => {
-    //     res.status(204).end();
-    //   });
-    // }
+    if (req.session.loggedIn) {
+      req.session.destroy(() => {
+        res.status(204).end();
+      });
+    }
   } catch (err) {
     console.log(err);
     res.status(500).json(err);
