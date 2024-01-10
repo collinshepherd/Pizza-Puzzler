@@ -22,6 +22,7 @@ PlayerProgress.init(
     },
     stateObject: {
       type: DataTypes.JSON,
+      allowNull: false,
       defaultValue: this.defaultPlayerProgress,
     },
   },

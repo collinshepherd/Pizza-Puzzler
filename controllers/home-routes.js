@@ -7,12 +7,6 @@ router.get("/", async (req, res) => {
   });
 });
 
-router.get("/test", async (req, res) => {
-  res.render("test", {
-    loggedIn: req.session.loggedIn,
-    username: req.session.username,
-  });
-});
 router.get("/login", async (req, res) => {
   // console.log("req.session.loggedIn", req.session.loggedIn);
   if (req.session.loggedIn) {

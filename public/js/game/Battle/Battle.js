@@ -1,5 +1,6 @@
 class Battle {
-  constructor({ enemy, onComplete, arena }) {
+  constructor({ progress, enemy, onComplete, arena }) {
+    this.progress = progress;
     this.enemy = enemy;
     this.onComplete = onComplete;
     this.arena = arena;
@@ -161,6 +162,7 @@ class Battle {
 
           //Send signal to update
           utils.emitEvent("PlayerStateUpdated");
+          this.progress.save();
         }
 
         this.element.remove();
