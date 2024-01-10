@@ -14,6 +14,15 @@
       href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap"
       rel="stylesheet"
     />
+    <!-- Font -->
+    <link rel="preconnect" href="https://fonts.gstatic.com" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Ribeye&display=swap"
+      rel="stylesheet"
+    />
+    <!-- Overworld styles -->
     <link href="/js/game/styles/global.css" type="text/css" rel="stylesheet" />
     <link
       href="/js/game/styles/TextMessage.css"
@@ -25,8 +34,17 @@
       type="text/css"
       rel="stylesheet"
     />
-    <link href="/js/game/styles/Menus.css" type="text/css" rel="stylesheet" />
-
+    <link
+      href="/js/game/styles/KeyboardMenu.css"
+      type="text/css"
+      rel="stylesheet"
+    />
+    <link href="/js/game/styles/Hud.css" type="text/css" rel="stylesheet" />
+    <link
+      href="/js/game/styles/TitleScreen.css"
+      type="text/css"
+      rel="stylesheet"
+    />
     <!-- Battle css -->
     <link href="/js/game/styles/Battle.css" type="text/css" rel="stylesheet" />
     <link
@@ -34,18 +52,13 @@
       type="text/css"
       rel="stylesheet"
     />
-    <link href="/js/game/styles/Team.css" type="text/css" rel="stylesheet" />
     <link
       href="/js/game/styles/SubmissionMenu.css"
       type="text/css"
       rel="stylesheet"
     />
-    <link
-      href="/js/game/styles/KeyboardMenu.css"
-      type="text/css"
-      rel="stylesheet"
-    />
-    <link href="/js/game/styles/Hud.css" type="text/css" rel="stylesheet" />
+    <link href="/js/game/styles/Team.css" type="text/css" rel="stylesheet" />
+    <link href="/js/game/styles/Menus.css" type="text/css" rel="stylesheet" />
     <link rel="stylesheet" href="/css/style.css" />
     <link rel="icon" href="" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -121,6 +134,7 @@
     <script src="/js/game/Overworld.js"></script>
     <script src="/js/game/GameObject.js"></script>
     <script src="/js/game/Person.js"></script>
+    <script src="/js/game/PizzaStone.js"></script>
     <script src="/js/game/Sprite.js"></script>
     <script src="/js/game/OverworldMap.js"></script>
     <script src="/js/game/OverworldEvent.js"></script>
@@ -131,7 +145,9 @@
     <script src="/js/game/KeyboardMenu.js"></script>
     <script src="/js/game/Hud.js"></script>
     <script src="/js/game/PauseMenu.js"></script>
-    <script src="/js/game/FetchData.js"></script>
+    <script src="/js/game/CraftingMenu.js"></script>
+    <script src="/js/game/Progress.js"></script>
+    <script src="/js/game/TitleScreen.js"></script>
 
     <!-- Battle -->
     <script src="/js/game/Battle/Battle.js"></script>
@@ -142,6 +158,7 @@
     <script src="/js/game/Battle/BattleEvent.js"></script>
     <script src="/js/game/Battle/TurnCycle.js"></script>
     <script src="/js/game/Battle/BattleAnimations.js"></script>
+
     <script src="/js/game/init.js"></script>
 
   </body>

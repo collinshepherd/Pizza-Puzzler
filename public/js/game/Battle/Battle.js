@@ -1,79 +1,70 @@
 class Battle {
-  constructor({ enemy, onComplete }) {
+  constructor({ enemy, onComplete, arena }) {
     this.enemy = enemy;
     this.onComplete = onComplete;
+    this.arena = arena;
 
     this.combatants = {
-      // player1: new Combatant(
-      //   {
-      //     ...Pizzas.s001,
-      //     team: "player",
-      //     hp: 30,
-      //     maxHp: 50,
-      //     xp: 95,
-      //     maxXp: 100,
-      //     level: 1,
-      //     status: { type: "saucy" },
-      //     isPlayerControlled: true,
-      //   },
-      //   this
-      // ),
-      // player2: new Combatant(
-      //   {
-      //     ...Pizzas.s002,
-      //     team: "player",
-      //     hp: 30,
-      //     maxHp: 50,
-      //     xp: 75,
-      //     maxXp: 100,
-      //     level: 1,
-      //     status: null,
-      //     isPlayerControlled: true,
-      //   },
-      //   this
-      // ),
-      // enemy1: new Combatant(
-      //   {
-      //     ...Pizzas.v001,
-      //     team: "enemy",
-      //     hp: 1,
-      //     maxHp: 50,
-      //     xp: 20,
-      //     maxXp: 100,
-      //     level: 1,
-      //   },
-      //   this
-      // ),
-      // enemy2: new Combatant(
-      //   {
-      //     ...Pizzas.f001,
-      //     team: "enemy",
-      //     hp: 25,
-      //     maxHp: 50,
-      //     xp: 30,
-      //     maxXp: 100,
-      //     level: 1,
-      //   },
-      //   this
-      // ),
+      // "player1": new Combatant({
+      //   ...Pizzas.s001,
+      //   team: "player",
+      //   hp: 30,
+      //   maxHp: 50,
+      //   xp: 95,
+      //   maxXp: 100,
+      //   level: 1,
+      //   status: { type: "saucy" },
+      //   isPlayerControlled: true
+      // }, this),
+      // "player2": new Combatant({
+      //   ...Pizzas.s002,
+      //   team: "player",
+      //   hp: 30,
+      //   maxHp: 50,
+      //   xp: 75,
+      //   maxXp: 100,
+      //   level: 1,
+      //   status: null,
+      //   isPlayerControlled: true
+      // }, this),
+      // "enemy1": new Combatant({
+      //   ...Pizzas.v001,
+      //   team: "enemy",
+      //   hp: 1,
+      //   maxHp: 50,
+      //   xp: 20,
+      //   maxXp: 100,
+      //   level: 1,
+      // }, this),
+      // "enemy2": new Combatant({
+      //   ...Pizzas.f001,
+      //   team: "enemy",
+      //   hp: 25,
+      //   maxHp: 50,
+      //   xp: 30,
+      //   maxXp: 100,
+      //   level: 1,
+      // }, this)
     };
 
     this.activeCombatants = {
-      player: null,
-      enemy: null,
+      player: null, //"player1",
+      enemy: null, //"enemy1",
     };
 
-    // Dynamically add the Player Team
-
-    window.playerState.lineup.forEach(async (id) => {
-      await this.addCombatant(id, "player", window.playerState.pizzas[id]);
+    //Dynamically add the Player team
+    window.playerState.lineup.forEach((id) => {
+      this.addCombatant(id, "player", window.playerState.pizzas[id]);
     });
-    Object.keys(this.enemy.pizzas).forEach(async (key) => {
-      await this.addCombatant("e_" + key, "enemy", this.enemy.pizzas[key]);
+    //Now the enemy team
+    Object.keys(this.enemy.pizzas).forEach((key) => {
+      this.addCombatant("e_" + key, "enemy", this.enemy.pizzas[key]);
     });
 
+    //Start empty
     this.items = [];
 
+    //Add in player items
     window.playerState.items.forEach((item) => {
       this.items.push({
         ...item,
@@ -84,10 +75,7 @@ class Battle {
     this.usedInstanceIds = {};
   }
 
-  async addCombatant(id, team, config) {
-    console.log("id", id, "\nteam", team, "\nconfig", config);
-    const pizzas = await this.fetchData();
-    console.log(pizzas);
+  addCombatant(id, team, config) {
     this.combatants[id] = new Combatant(
       {
         ...Pizzas[config.pizzaId],
@@ -98,37 +86,25 @@ class Battle {
       this
     );
 
-    // Populate first active pizza
+    //Populate first active pizza
     this.activeCombatants[team] = this.activeCombatants[team] || id;
-  }
-
-  async fetchData() {
-    try {
-      const apiUrl = `http://localhost:3001/api/pizza/getUserPizzas`; // For website
-      // const apiUrl = `http://localhost:3001/api/pizza/1`; // For insomnia testing
-      console.log("Fetching URL:", apiUrl);
-      const pizzaData = await fetch(apiUrl, {
-        method: "GET",
-        headers: { "Content-Type": "application/json" },
-      });
-      // pizzaData.shift();
-      const jsonData = await pizzaData.json();
-      console.log(jsonData);
-      return jsonData;
-    } catch (error) {
-      console.error(error);
-    }
   }
 
   createElement() {
     this.element = document.createElement("div");
     this.element.classList.add("Battle");
+
+    // If provided, add a CSS class for setting the arena background
+    if (this.arena) {
+      this.element.classList.add(this.arena);
+    }
+
     this.element.innerHTML = `
     <div class="Battle_hero">
-      <img src="${"../images/characters/people/hero.png"}" alt="Hero" />
+      <img src="${"./images/characters/people/hero.png"}" alt="Hero" />
     </div>
     <div class="Battle_enemy">
-      <img src="${this.enemy.src}" alt="${this.enemy.name}" />
+      <img src=${this.enemy.src} alt=${this.enemy.name} />
     </div>
     `;
   }
@@ -183,12 +159,12 @@ class Battle {
             return !this.usedInstanceIds[item.instanceId];
           });
 
-          // Send Signal to update
+          //Send signal to update
           utils.emitEvent("PlayerStateUpdated");
         }
 
         this.element.remove();
-        this.onComplete();
+        this.onComplete(winner === "player");
       },
     });
     this.turnCycle.init();

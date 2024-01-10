@@ -1,5 +1,4 @@
 const { Pizza } = require("./models");
-const update = require("./public/js/game/GetNewData");
 
 async function updateData(combatant) {
   // console.log("this file went off");
