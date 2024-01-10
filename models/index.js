@@ -1,14 +1,9 @@
 const Riddles = require("./riddles");
 const User = require("./User");
-const Pizza = require("./Pizza");
+const PlayerProgress = require("./PlayerProgress");
 
-User.hasMany(Pizza, {
-  foreignKey: "userId",
-  onDelete: "CASCADE",
+PlayerProgress.belongsTo(User, {
+  foreignKey: "user_id",
 });
 
-Pizza.belongsTo(User, {
-  foreignKey: "userId",
-});
-
-module.exports = { User, Riddles, Pizza };
+module.exports = { User, Riddles, PlayerProgress };

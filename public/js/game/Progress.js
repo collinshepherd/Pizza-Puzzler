@@ -4,38 +4,58 @@ class Progress {
     this.startingHeroX = 0;
     this.startingHeroY = 0;
     this.startingHeroDirection = "down";
-    this.saveFileKey = "PizzaLegends_SaveFile1";
+    this.saveFileKey = `PizzaLegends_SaveFile1`;
   }
 
-  save() {
-    window.localStorage.setItem(
-      this.saveFileKey,
-      JSON.stringify({
-        mapId: this.mapId,
-        startingHeroX: this.startingHeroX,
-        startingHeroY: this.startingHeroY,
-        startingHeroDirection: this.startingHeroDirection,
-        playerState: {
-          pizzas: playerState.pizzas,
-          lineup: playerState.lineup,
-          items: playerState.items,
-          storyFlags: playerState.storyFlags,
-        },
-      })
-    );
+  async save() {
+    try {
+      const response = await fetch(
+        "http://localhost:3001/api/progress/updateProgress",
+        {
+          method: "POST", // or 'PUT'
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            mapId: this.mapId,
+            startingHeroX: this.startingHeroX,
+            startingHeroY: this.startingHeroY,
+            startingHeroDirection: this.startingHeroDirection,
+            playerState: {
+              pizzas: playerState.pizzas,
+              lineup: playerState.lineup,
+              items: playerState.items,
+              storyFlags: playerState.storyFlags,
+            },
+          }),
+        }
+      );
+
+      const result = await response.json();
+      // console.log("Success:", result);
+    } catch (error) {
+      console.error("Error:", error);
+    }
   }
 
-  getSaveFile() {
-    if (!window.localStorage) {
+  async getSaveFile() {
+    try {
+      const apiUrl = "http://localhost:3001/api/progress/getProgress";
+      const response = await fetch(apiUrl, {
+        method: "GET",
+        headers: { "Content-Type": "application/json" },
+      });
+      const progress = await response.json();
+      // console.log(progress);
+      return progress.stateObject;
+    } catch (error) {
+      console.error(error);
       return null;
     }
-
-    const file = window.localStorage.getItem(this.saveFileKey);
-    return file ? JSON.parse(file) : null;
   }
 
-  load() {
-    const file = this.getSaveFile();
+  async load() {
+    const file = await this.getSaveFile();
     if (file) {
       this.mapId = file.mapId;
       this.startingHeroX = file.startingHeroX;

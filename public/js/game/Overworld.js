@@ -121,7 +121,7 @@ class Overworld {
     //Potentially load saved data
     let initialHeroState = null;
     if (useSaveFile) {
-      this.progress.load();
+      await this.progress.load();
       initialHeroState = {
         x: this.progress.startingHeroX,
         y: this.progress.startingHeroY,

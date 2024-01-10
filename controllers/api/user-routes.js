@@ -1,6 +1,5 @@
 const router = require("express").Router();
-const { User, Pizza } = require("../../models");
-const pizzaData = require("./pizzaData.json");
+const { User, PlayerProgress } = require("../../models");
 
 // GET all users
 router.get("/", async (req, res) => {
@@ -88,8 +87,6 @@ router.post("/login", async (req, res) => {
 
     const user = await dbUserData.get({ plain: true });
 
-    console.log("user", user);
-
     if (!user) {
       res
         .status(400)
@@ -138,15 +135,10 @@ router.post("/signup", async (req, res) => {
     // Create a new user
     const newUser = await User.create(req.body);
 
-    // Associate pizzas with the new user
-    const pizzasPromises = pizzaData.map(async (pizza) => {
-      pizza.userId = newUser.id;
-      const createdPizza = await Pizza.create(pizza);
-      return createdPizza;
+    const newPlayerData = await PlayerProgress.create({
+      user_id: newUser.id,
+      stateObject: PlayerProgress.defaultPlayerProgress,
     });
-
-    // Wait for all pizza creations to finish
-    const pizzas = await Promise.all(pizzasPromises);
 
     // Save session and respond
     req.session.save(() => {
@@ -155,7 +147,7 @@ router.post("/signup", async (req, res) => {
       req.session.user_id = newUser.id;
       res
         .status(200)
-        .json({ user: newUser, pizzas, message: "You are now logged in!" });
+        .json({ user: newUser, message: "You are now logged in!" });
     });
   } catch (err) {
     // Handle errors
