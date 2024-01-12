@@ -11,7 +11,7 @@ We created this fun riddle game to entertain its users and get your mind working
 - [License](#license)
 
 ## Installation
-To use this application, simply sign in and start playing [Pizza Puzzler]("https://pizza-puzzler-df030c54c16c.herokuapp.com/")
+To use this application, simply sign in and start playing [Pizza Puzzler](https://pizza-puzzler-df030c54c16c.herokuapp.com/)
 
 ## Usage
 Log in or Sign up to start playing! 
