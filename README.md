@@ -11,12 +11,10 @@ We created this fun riddle game to entertain its users and get your mind working
 - [License](#license)
 
 ## Installation
-To use this application, simply sign in and start playing @ ....url
+To use this application, simply sign in and start playing [Pizza Puzzler]("https://pizza-puzzler-df030c54c16c.herokuapp.com/")
 
 ## Usage
 Log in or Sign up to start playing! 
 
 ## Credits
 This webpage was created by Collin, Harmony, Jennifer. We used many resources in creating this application, which will be sourced below:
-
-https://parade.com/947956/parade/riddles/
